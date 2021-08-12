@@ -1,13 +1,14 @@
 import React from 'react';
+import ICard from '../../common/interfaces/ICard';
 
 interface IMyComponentProps {
   title?: string;
-  lists?: { id: number; title: string; cards: { id: number; title: string }[] }[];
+  lists?: { id: number; title: string; cards: ICard[] }[];
 }
 
 interface IMyComponentState {
   title: string;
-  lists: { id: number; title: string; cards: { id: number; title: string }[] }[];
+  lists: { id: number; title: string; cards: ICard[] }[];
 }
 
 const data = {
