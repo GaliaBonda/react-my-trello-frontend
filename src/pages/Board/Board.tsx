@@ -1,5 +1,6 @@
 import React from 'react';
 import ICard from '../../common/interfaces/ICard';
+import List from './components/List/List';
 
 interface IMyComponentProps {
   title?: string;
@@ -47,6 +48,13 @@ export default class Board extends React.Component<IMyComponentProps, IMyCompone
 
   render(): JSX.Element {
     const boardState = this.state;
-    return <h1>{boardState.title}</h1>;
+    const items = boardState.lists.map((item) => <List title={item.title} cards={item.cards} />);
+    return (
+      <div>
+        <h1>{boardState.title}</h1>
+        {items}
+        <button>Создать список</button>
+      </div>
+    );
   }
 }
