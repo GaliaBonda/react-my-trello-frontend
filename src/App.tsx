@@ -28,7 +28,7 @@ export default function App(): JSX.Element {
   return (
     <Router>
       <div>
-        <nav>
+        <nav className="nav">
           <ul>
             <li>
               <Link to="/">Home</Link>

@@ -1,0 +1,30 @@
+.board-container {
+    padding: 20px;
+}
+
+.board-title {
+    text-align: center;
+    text-transform: uppercase;
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
+.lists {
+    display: flex;
+    justify-content: space-around;
+}
+
+.board-btn {
+    padding: 7px;
+    height: 40px;
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.board-btn:hover {
+    background-color: black;
+    color: white;
+}
