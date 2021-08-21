@@ -5,8 +5,12 @@
 .board-title {
     text-align: center;
     text-transform: uppercase;
-    padding: 20px;
-    padding-bottom: 40px;
+    margin: 20px;
+    margin-bottom: 40px;
+    padding: 10px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 2px var(--shadow);
 }
 
 .lists {
@@ -17,14 +21,15 @@
 .board-btn {
     padding: 7px;
     height: 40px;
-    color: black;
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 3px;
+    color: var(--font);
+    background-color: var(--background);
+    border: 2px solid var(--border);
+    border-radius: 5px;
     font-weight: 600;
+    box-shadow: 0px 0px 6px 1px var(--shadow);
 }
 
 .board-btn:hover {
-    background-color: black;
+    background-color: var(--border);
     color: white;
 }

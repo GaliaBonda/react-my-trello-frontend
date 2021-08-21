@@ -1,39 +1,37 @@
 .list {
-    //padding: 5px;
+    padding: 20px;
     width: 300px;
     height: 300px;
-    border: 2px solid black;
-    border-radius: 3px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
     overflow-y: auto;
     word-wrap: break-word;
     position: relative;
+    box-shadow: 0px 0px 10px 5px var(--shadow);
 }
 
 .list-title {
-    text-align: center;
     position: sticky;
     top: 0;
-    padding: 5px;
     margin: 0;
     z-index: 1;
-    background-color: white;
+    background-color: var(--background);
 }
 
 .list-btn {
     display: block;
     height: 40px;
-    color: black;
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 3px;
+    color: var(--font);
+    background-color: var(--background);
+    border: 2px solid var(--border);
+    border-radius: 5px;
     font-weight: 600;
     position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translate(-50%);
+    bottom: 20px;
+    box-shadow: 0px 0px 6px 1px var(--shadow);
 }
 
 .list-btn:hover {
     color: white;
-    background-color: black;
+    background-color: var(--border);
 }
