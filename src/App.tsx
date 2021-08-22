@@ -31,10 +31,10 @@ export default function App(): JSX.Element {
         <nav className="nav">
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to={`${process.env.PUBLIC_URL}/`}>Home</Link>
             </li>
             <li>
-              <Link to="/board">Board</Link>
+              <Link to={`${process.env.PUBLIC_URL}/board`}>Board</Link>
             </li>
           </ul>
         </nav>
@@ -42,10 +42,10 @@ export default function App(): JSX.Element {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/board">
+          <Route path={`${process.env.PUBLIC_URL}/board`}>
             <About />
           </Route>
-          <Route path="/">
+          <Route path={`${process.env.PUBLIC_URL}/`}>
             <Home />
           </Route>
         </Switch>
