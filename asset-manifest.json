@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react-my-trello-frontend/static/css/main.aabfde20.chunk.css",
+    "main.css": "/react-my-trello-frontend/static/css/main.03fad304.chunk.css",
     "main.js": "/react-my-trello-frontend/static/js/main.c1c9f135.chunk.js",
     "main.js.map": "/react-my-trello-frontend/static/js/main.c1c9f135.chunk.js.map",
     "runtime-main.js": "/react-my-trello-frontend/static/js/runtime-main.3dfd07f3.js",
@@ -10,14 +10,14 @@
     "static/js/3.2a00ec94.chunk.js": "/react-my-trello-frontend/static/js/3.2a00ec94.chunk.js",
     "static/js/3.2a00ec94.chunk.js.map": "/react-my-trello-frontend/static/js/3.2a00ec94.chunk.js.map",
     "index.html": "/react-my-trello-frontend/index.html",
-    "static/css/main.aabfde20.chunk.css.map": "/react-my-trello-frontend/static/css/main.aabfde20.chunk.css.map",
+    "static/css/main.03fad304.chunk.css.map": "/react-my-trello-frontend/static/css/main.03fad304.chunk.css.map",
     "static/js/2.88e2029c.chunk.js.LICENSE.txt": "/react-my-trello-frontend/static/js/2.88e2029c.chunk.js.LICENSE.txt",
     "static/media/logo.6ce24c58.svg": "/react-my-trello-frontend/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.3dfd07f3.js",
     "static/js/2.88e2029c.chunk.js",
-    "static/css/main.aabfde20.chunk.css",
+    "static/css/main.03fad304.chunk.css",
     "static/js/main.c1c9f135.chunk.js"
   ]
 }
