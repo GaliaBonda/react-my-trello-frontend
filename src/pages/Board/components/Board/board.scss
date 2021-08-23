@@ -1,5 +1,7 @@
 .board-container {
-    padding: 20px;
+    padding: 30px;
+    min-width: fit-content;
+    overflow-x: auto;
 }
 
 .board-title {
@@ -15,12 +17,15 @@
 
 .lists {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    flex-wrap: nowrap;
+    column-gap: 50px;
 }
 
 .board-btn {
     padding: 7px;
     height: 40px;
+    width: 150px;
     color: var(--font);
     background-color: var(--background);
     border: 2px solid var(--border);
