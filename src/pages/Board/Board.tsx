@@ -49,7 +49,8 @@ export default class Board extends React.Component<IMyComponentProps, IMyCompone
 
   render(): JSX.Element {
     const boardState = this.state;
-    const items = boardState.lists.map((item) => <List title={item.title} cards={item.cards} />);
+    // eslint-disable-next-line react/no-array-index-key
+    const items = boardState.lists.map((item, index) => <List title={item.title} cards={item.cards} key={index} />);
     return (
       <div className="board-container">
         <h1 className="board-title">{boardState.title}</h1>
