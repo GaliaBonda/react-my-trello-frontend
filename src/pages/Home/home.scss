@@ -1,0 +1,20 @@
+@import '../Board/components/List/list.scss';
+
+.boards {
+    margin: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.new-board-btn {
+    @extend %btn;
+    height: 50px;
+    width: 150px;
+}
+
+.new-board-btn:hover {
+    @extend %btn-hover;
+}

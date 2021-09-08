@@ -1,0 +1,8 @@
+@import '../../../Board/components/List/list.scss';
+
+.board {
+    padding: 20px;
+    width: 250px;
+    height: 150px;
+    @extend %blank;
+}

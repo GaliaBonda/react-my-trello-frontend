@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './components/Board/Board';
+import './home.scss';
 
 interface IMyComponentState {
   boards: { id: number; title: string }[];
@@ -27,13 +28,19 @@ export default class Home extends React.Component<IMyComponentProp, IMyComponent
 
   render(): JSX.Element {
     const boardsArr = this.state;
-    // eslint-disable-next-line react/no-array-index-key
-    const items = boardsArr.boards.map((item, index) => <Board title={item.title} key={index} />);
+    let randomColor;
+    const items = boardsArr.boards.map((item, index) => {
+      randomColor = `hsla(${Math.random() * 360}, 100%, 80%, 0.6)`;
+      return (
+        // eslint-disable-next-line react/no-array-index-key
+        <Board title={item.title} key={index} color={randomColor} />
+      );
+    });
     return (
-      <div>
-        <div>
+      <div className="boards-container">
+        <div className="boards">
           {items}
-          <button>Создать доску</button>
+          <button className="new-board-btn">Создать доску</button>
         </div>
       </div>
     );

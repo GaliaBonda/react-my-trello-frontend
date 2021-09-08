@@ -1,3 +1,6 @@
+@import 'src/app';
+@import '../List/list.scss';
+
 .board-container {
     padding: 30px;
     min-width: fit-content;
@@ -10,9 +13,9 @@
     margin: 20px;
     margin-bottom: 40px;
     padding: 10px;
-    border: 2px solid var(--border);
+    border: 2px solid $border;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px 2px var(--shadow);
+    box-shadow: 0px 0px 10px 2px $shadow;
 }
 
 .lists {
@@ -23,18 +26,9 @@
 }
 
 .board-btn {
-    padding: 7px;
-    height: 40px;
-    width: 150px;
-    color: var(--font);
-    background-color: var(--background);
-    border: 2px solid var(--border);
-    border-radius: 5px;
-    font-weight: 600;
-    box-shadow: 0px 0px 6px 1px var(--shadow);
+    @extend %btn;
 }
 
 .board-btn:hover {
-    background-color: var(--border);
-    color: white;
+    @extend %btn-hover;
 }
