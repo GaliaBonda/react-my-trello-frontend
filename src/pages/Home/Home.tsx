@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Board from './components/Board/Board';
 import './home.scss';
 
@@ -20,7 +21,6 @@ const boards = {
 };
 
 export default class Home extends React.Component<IMyComponentProp, IMyComponentState> {
-  // eslint-disable-next-line @typescript-eslint/ban-types
   constructor(props: IMyComponentProp) {
     super(props);
     this.state = boards;
@@ -29,11 +29,12 @@ export default class Home extends React.Component<IMyComponentProp, IMyComponent
   render(): JSX.Element {
     const boardsArr = this.state;
     let randomColor;
-    const items = boardsArr.boards.map((item, index) => {
+    const items = boardsArr.boards.map((item) => {
       randomColor = `hsla(${Math.random() * 360}, 100%, 80%, 0.6)`;
       return (
-        // eslint-disable-next-line react/no-array-index-key
-        <Board title={item.title} key={index} color={randomColor} />
+        <Link to={`/board/board_${item.id}`}>
+          <Board title={item.title} key={item.id} color={randomColor} />
+        </Link>
       );
     });
     return (

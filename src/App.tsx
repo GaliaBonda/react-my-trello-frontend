@@ -14,15 +14,15 @@ function About(): JSX.Element {
 
 export default function App(): JSX.Element {
   return (
-    <Router>
+    <Router basename="/react-my-trello-frontend">
       <div>
         <nav className="nav">
           <ul>
             <li>
-              <Link to={`${process.env.PUBLIC_URL}/`}>Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to={`${process.env.PUBLIC_URL}/board`}>Board</Link>
+              <Link to="/board">Board</Link>
             </li>
           </ul>
         </nav>
@@ -30,10 +30,13 @@ export default function App(): JSX.Element {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path={`${process.env.PUBLIC_URL}/board`}>
+          <Route path="/board/:board_id">
             <About />
           </Route>
-          <Route path={`${process.env.PUBLIC_URL}/`}>
+          <Route path="/board">
+            <About />
+          </Route>
+          <Route path="/">
             <Main />
           </Route>
         </Switch>
@@ -41,3 +44,15 @@ export default function App(): JSX.Element {
     </Router>
   );
 }
+
+// function Child(): JSX.Element {
+//   // We can use the `useParams` hook here to access
+//   // the dynamic pieces of the URL.
+//   const { board_id } = useParams<{ board_id: string }>();
+
+//   return (
+//     <div>
+//       <h3>ID: {board_id}</h3>
+//     </div>
+//   );
+// }

@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 import ICard from '../../common/interfaces/ICard';
 import List from './components/List/List';
 import './components/Board/board.scss';
 
-interface IMyComponentProps {
-  title?: string;
-  lists?: { id: number; title: string; cards: ICard[] }[];
-}
+// interface IMyComponentProps {
+//   title?: string;
+//   lists?: { id: number; title: string; cards: ICard[] }[];
+//   match?: unknown;
+// }
+
+type TParams = { board_id: string | undefined };
 
 interface IMyComponentState {
   title: string;
@@ -41,19 +46,21 @@ const data = {
   ],
 };
 
-export default class Board extends React.Component<IMyComponentProps, IMyComponentState> {
-  constructor(props: IMyComponentProps) {
+class Board extends React.Component<RouteComponentProps<TParams>, IMyComponentState> {
+  constructor(props: RouteComponentProps<TParams>) {
     super(props);
     this.state = data;
   }
 
   render(): JSX.Element {
+    const { match } = this.props;
+    const { board_id } = match.params;
+
     const boardState = this.state;
-    // eslint-disable-next-line react/no-array-index-key
-    const items = boardState.lists.map((item, index) => <List title={item.title} cards={item.cards} key={index} />);
+    const items = boardState.lists.map((item) => <List title={item.title} cards={item.cards} key={item.id} />);
     return (
       <div className="board-container">
-        <h1 className="board-title">{boardState.title}</h1>
+        <h1 className="board-title">{`${boardState.title} ${board_id}`}</h1>
         <div className="lists">
           {items}
           <button className="board-btn">Создать список</button>
@@ -62,3 +69,5 @@ export default class Board extends React.Component<IMyComponentProps, IMyCompone
     );
   }
 }
+
+export default withRouter(Board);
