@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
+// import { connect } from 'react-redux';
 import ICard from '../../common/interfaces/ICard';
 import List from './components/List/List';
 import './components/Board/board.scss';

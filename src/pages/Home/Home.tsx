@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-console */
 
 import React from 'react';
@@ -6,11 +7,12 @@ import { connect } from 'react-redux';
 import IBoard from 'src/common/interfaces/IBoard';
 import Board from './components/Board/Board';
 import './home.scss';
-import { getBoards } from '../../store/modules/boards/actions';
+import { getBoards, postBoard } from '../../store/modules/boards/actions';
 
 type PropsType = {
   boards?: IBoard[];
   getBoards: () => Promise<void>;
+  postBoard: () => Promise<void>;
 };
 type StateType = {
   boards?: IBoard[];
@@ -39,13 +41,13 @@ class Home extends React.Component<PropsType, StateType> {
   //   this.state = boards;
   // }
   async componentDidMount(): Promise<void> {
-    // eslint-disable-next-line react/destructuring-assignment
+    // await this.props.postBoard();
     await this.props.getBoards();
   }
 
   render(): JSX.Element {
     const { boards } = this.props;
-    // console.log(boards);
+    console.log(boards);
     // let randomColor;
     // const items = boardsArr.boards.map((item) => {
     //   randomColor = `hsla(${Math.random() * 360}, 100%, 80%, 0.6)`;
@@ -82,4 +84,4 @@ class Home extends React.Component<PropsType, StateType> {
 const mapStateToProps = (state: StateType): unknown => ({
   ...state.boards,
 });
-export default connect(mapStateToProps, { getBoards })(Home);
+export default connect(mapStateToProps, { getBoards, postBoard })(Home);
