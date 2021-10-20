@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-console */
 
@@ -10,12 +11,12 @@ import './home.scss';
 import { getBoards, postBoard } from '../../store/modules/boards/actions';
 
 type PropsType = {
-  boards?: IBoard[];
+  boards: IBoard[];
   getBoards: () => Promise<void>;
   postBoard: () => Promise<void>;
 };
 type StateType = {
-  boards?: IBoard[];
+  boards: IBoard[];
 };
 
 // interface IMyComponentState {
@@ -48,22 +49,13 @@ class Home extends React.Component<PropsType, StateType> {
   render(): JSX.Element {
     const { boards } = this.props;
     console.log(boards);
-    // let randomColor;
-    // const items = boardsArr.boards.map((item) => {
-    //   randomColor = `hsla(${Math.random() * 360}, 100%, 80%, 0.6)`;
-    //   return (
-    //     <Link to={`/board/board_${item.id}`}>
-    //       <Board title={item.title} key={item.id} color={randomColor} />
-    //     </Link>
-    //   );
-    // });
     let randomColor;
     let items;
     if (boards) {
       items = boards.map((item) => {
         randomColor = `hsla(${Math.random() * 360}, 100%, 80%, 0.6)`;
         return (
-          <Link to={`/board/board_${item.id}`} key={item.id}>
+          <Link to={`/board/${item.id}`} key={item.id}>
             <Board title={item.title} key={item.id} color={randomColor} />
           </Link>
         );
@@ -84,4 +76,5 @@ class Home extends React.Component<PropsType, StateType> {
 const mapStateToProps = (state: StateType): unknown => ({
   ...state.boards,
 });
-export default connect(mapStateToProps, { getBoards, postBoard })(Home);
+
+export default connect(mapStateToProps, { getBoards, postBoard })(Home as any);
