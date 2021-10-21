@@ -9,7 +9,7 @@ import IBoard from 'src/common/interfaces/IBoard';
 import { getBoard } from 'src/store/modules/board/actions';
 // import IList from 'src/common/interfaces/IList';
 import ID from '../../common/interfaces/ID';
-// import List from './components/List/List';
+import List from './components/List/List';
 import './components/Board/board.scss';
 
 // interface IMyComponentProps {
@@ -78,31 +78,54 @@ class Board extends React.Component<RouteComponentProps<TParams> & PropsType, St
 
   async componentDidMount(): Promise<void> {
     // await this.props.postBoard();
+    const { match } = this.props;
+    const { board_id } = match.params;
+    console.log('I work');
+    if (board_id) boardID = Number.parseInt(board_id, 10);
     // eslint-disable-next-line react/destructuring-assignment
     await this.props.getBoard(boardID);
   }
 
   render(): JSX.Element {
-    const { match } = this.props;
-    const { board_id } = match.params;
-    if (board_id) boardID = Number.parseInt(board_id, 10);
+    // const { match } = this.props;
+    // const { board_id } = match.params;
+    // if (board_id) boardID = Number.parseInt(board_id, 10);
 
     const { board } = this.props;
-    // eslint-disable-next-line no-console
     console.log('board', board);
+    // console.log('board.lists', board.lists);
+    // console.log('board.lists', board.lists);
+    let items;
+    if (board && board.lists.length > 0) {
+      items = board.lists.map((item) => <List title={item.title} cards={item.cards} key={item.id} />);
+    }
+    // else {
+    //   items = [<List title="item.title" cards={[]} key="item.id" />];
+    // }
     // const boardLists: IList[] = [];
     // eslint-disable-next-line no-restricted-syntax
     // for (const item of board.lists) boardLists.push(item);
     // const items = boardLists.map((item) => <List title={item.title} cards={item.cards} key={item.id} />);
+    if (board) {
+      return (
+        // <div>{items}</div>
+        // <div>{JSON.stringify(board)}</div>
+        <div className="board-container">
+          <h1 className="board-title">{`${board.title} ${boardID}`}</h1>
+          <div className="lists">
+            {items}
+            <button className="board-btn">Создать список</button>
+          </div>
+        </div>
+      );
+    }
     return (
-      <div>{JSON.stringify(board)}</div>
-      // <div className="board-container">
-      //   <h1 className="board-title">{`${board.title} ${board_id}`}</h1>
-      //   <div className="lists">
-      //     {items}
-      //     <button className="board-btn">Создать список</button>
-      //   </div>
-      // </div>
+      <div className="board-container">
+        <h1 className="board-title">Доска не найдена</h1>
+        <div className="lists">
+          <button className="board-btn">Создать список</button>
+        </div>
+      </div>
     );
   }
 }
