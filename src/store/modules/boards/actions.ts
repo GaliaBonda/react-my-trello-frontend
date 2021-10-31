@@ -7,6 +7,7 @@ import config from 'src/common/constants/api';
 import { Dispatch } from 'redux';
 import IBoard from 'src/common/interfaces/IBoard';
 import IUser from 'src/common/interfaces/IUser';
+import store from 'src/store/store';
 
 export const getBoards =
   () =>
@@ -37,5 +38,13 @@ export const postBoard = () => async (dispatch: Dispatch) => {
   } catch (e) {
     console.log(e);
     dispatch({ type: 'ERROR_ACTION_TYPE' });
+  }
+};
+
+export const showModal = () => store.dispatch({ type: 'SHOW_MODAL' });
+export const onKeyPress = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    store.dispatch({ type: 'CLOSE_MODAL', payload: e });
   }
 };

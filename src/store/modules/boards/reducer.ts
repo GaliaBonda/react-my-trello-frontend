@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import IBoard from '../../../common/interfaces/IBoard';
 
 const initialState = {
@@ -7,6 +8,7 @@ const initialState = {
     { id: 3, title: 'разработка интернет-магазина' },
     { id: 4, title: 'курс по продвижению в соцсетях' },
   ] as IBoard[],
+  isVisible: false,
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,6 +24,18 @@ export default function reducer(state = initialState, action: { type: string; pa
         ...state,
         boards: [...state.boards, action.payload],
       };
+    case 'SHOW_MODAL': {
+      return {
+        ...state,
+        isVisible: true,
+      };
+    }
+    case 'CLOSE_MODAL': {
+      return {
+        ...state,
+        isVisible: false,
+      };
+    }
     case 'ERROR_ACTION_TYPE':
       return {
         ...state,

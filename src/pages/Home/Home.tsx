@@ -8,15 +8,22 @@ import { connect } from 'react-redux';
 import IBoard from 'src/common/interfaces/IBoard';
 import Board from './components/Board/Board';
 import './home.scss';
-import { getBoards, postBoard } from '../../store/modules/boards/actions';
+import { getBoards, postBoard, showModal, onKeyPress } from '../../store/modules/boards/actions';
+import Modal from './components/Modal/Modal';
 
 type PropsType = {
   boards: IBoard[];
+  isVisible: boolean;
   getBoards: () => Promise<void>;
   postBoard: () => Promise<void>;
+  showModal: () => void;
+  onKeyPress: () => void;
 };
 type StateType = {
-  boards: IBoard[];
+  boards: {
+    boards: IBoard[];
+    isVisible: boolean;
+  };
 };
 
 // interface IMyComponentState {
@@ -36,19 +43,30 @@ type StateType = {
 //   ],
 // };
 
+// let modalIsVisible: boolean;
+
 class Home extends React.Component<PropsType, StateType> {
   // constructor(props: PropsType) {
   //   super(props);
   //   this.state = boards;
   // }
+
   async componentDidMount(): Promise<void> {
+    document.addEventListener('keydown', onKeyPress);
+    // console.log(this.props.boards);
     // await this.props.postBoard();
     await this.props.getBoards();
   }
 
+  componentWillUnmount(): void {
+    document.removeEventListener('keydown', onKeyPress);
+  }
+
   render(): JSX.Element {
     const { boards } = this.props;
-    console.log(boards);
+    console.log('boards', boards);
+    const { isVisible } = this.props;
+    console.log(isVisible);
     let randomColor;
     let items;
     if (boards) {
@@ -66,7 +84,10 @@ class Home extends React.Component<PropsType, StateType> {
       <div className="boards-container">
         <div className="boards">
           {items}
-          <button className="new-board-btn">Создать доску</button>
+          <button className="new-board-btn" onClick={showModal}>
+            Создать доску
+          </button>
+          <Modal isVisible={isVisible} />
         </div>
       </div>
     );
@@ -74,7 +95,8 @@ class Home extends React.Component<PropsType, StateType> {
 }
 
 const mapStateToProps = (state: StateType): unknown => ({
-  ...state.boards,
+  boards: state.boards.boards,
+  isVisible: state.boards.isVisible,
 });
 
-export default connect(mapStateToProps, { getBoards, postBoard })(Home as any);
+export default connect(mapStateToProps, { getBoards, postBoard, showModal, onKeyPress })(Home as any);

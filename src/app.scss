@@ -13,6 +13,9 @@ $shadow: rgba(12, 12, 12, 0.2);
 body {
   background-color: $background;
   color: $font;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 }
 
 button:hover {
