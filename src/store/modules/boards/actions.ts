@@ -48,3 +48,7 @@ export const onKeyPress = (e: KeyboardEvent) => {
     store.dispatch({ type: 'CLOSE_MODAL', payload: e });
   }
 };
+export const closeModal = () => {
+  // e.preventDefault();
+  store.dispatch({ type: 'CLOSE_MODAL' });
+};

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import IBoard from 'src/common/interfaces/IBoard';
 import Board from './components/Board/Board';
 import './home.scss';
-import { getBoards, postBoard, showModal, onKeyPress } from '../../store/modules/boards/actions';
+import { getBoards, postBoard, showModal, onKeyPress, closeModal } from '../../store/modules/boards/actions';
 import Modal from './components/Modal/Modal';
 
 type PropsType = {
@@ -18,6 +18,7 @@ type PropsType = {
   postBoard: () => Promise<void>;
   showModal: () => void;
   onKeyPress: () => void;
+  closeModal: () => void;
 };
 type StateType = {
   boards: {
@@ -87,8 +88,8 @@ class Home extends React.Component<PropsType, StateType> {
           <button className="new-board-btn" onClick={showModal}>
             Создать доску
           </button>
-          <Modal isVisible={isVisible} />
         </div>
+        <Modal isVisible={isVisible} closeModal={closeModal} />
       </div>
     );
   }
@@ -99,4 +100,4 @@ const mapStateToProps = (state: StateType): unknown => ({
   isVisible: state.boards.isVisible,
 });
 
-export default connect(mapStateToProps, { getBoards, postBoard, showModal, onKeyPress })(Home as any);
+export default connect(mapStateToProps, { getBoards, postBoard, showModal, onKeyPress, closeModal })(Home as any);

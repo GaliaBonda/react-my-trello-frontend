@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './app.scss';
+import './styles/normalize.css';
+import './styles/reset.css';
 import Board from './pages/Board/Board';
 import Home from './pages/Home/Home';
 

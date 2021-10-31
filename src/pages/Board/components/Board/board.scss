@@ -2,33 +2,34 @@
 @import '../List/list.scss';
 
 .board-container {
-    padding: 30px;
-    min-width: fit-content;
-    overflow-x: auto;
+  padding: 30px;
+  min-width: fit-content;
+  overflow-x: auto;
+  position: relative;
 }
 
 .board-title {
-    text-align: center;
-    text-transform: uppercase;
-    margin: 20px;
-    margin-bottom: 40px;
-    padding: 10px;
-    border: 2px solid $border;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 2px $shadow;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 20px;
+  margin-bottom: 40px;
+  padding: 10px;
+  border: 2px solid $border;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 2px $shadow;
 }
 
 .lists {
-    display: flex;
-    justify-content: center;
-    flex-wrap: nowrap;
-    column-gap: 50px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  column-gap: 50px;
 }
 
 .board-btn {
-    @extend %btn;
+  @extend %btn;
 }
 
 .board-btn:hover {
-    @extend %btn-hover;
+  @extend %btn-hover;
 }
