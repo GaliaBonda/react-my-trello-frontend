@@ -8,6 +8,7 @@ import { Dispatch } from 'redux';
 import IBoard from 'src/common/interfaces/IBoard';
 import IUser from 'src/common/interfaces/IUser';
 import store from 'src/store/store';
+import { ChangeEvent, FormEvent } from 'react';
 
 export const getBoards =
   () =>
@@ -51,4 +52,12 @@ export const onKeyPress = (e: KeyboardEvent) => {
 export const closeModal = () => {
   // e.preventDefault();
   store.dispatch({ type: 'CLOSE_MODAL' });
+};
+
+export const handleSubmit = (e: FormEvent) => {
+  e.preventDefault();
+};
+
+export const handleChange = (e: ChangeEvent) => {
+  e.preventDefault();
 };

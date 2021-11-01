@@ -2,13 +2,21 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-console */
 
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import IBoard from 'src/common/interfaces/IBoard';
 import Board from './components/Board/Board';
 import './home.scss';
-import { getBoards, postBoard, showModal, onKeyPress, closeModal } from '../../store/modules/boards/actions';
+import {
+  getBoards,
+  postBoard,
+  showModal,
+  onKeyPress,
+  closeModal,
+  handleSubmit,
+  handleChange,
+} from '../../store/modules/boards/actions';
 import Modal from './components/Modal/Modal';
 
 type PropsType = {
@@ -19,6 +27,8 @@ type PropsType = {
   showModal: () => void;
   onKeyPress: () => void;
   closeModal: () => void;
+  handleSubmit: (e: FormEvent) => void;
+  handleChange: (e: ChangeEvent) => void;
 };
 type StateType = {
   boards: {
@@ -89,7 +99,7 @@ class Home extends React.Component<PropsType, StateType> {
             Создать доску
           </button>
         </div>
-        <Modal isVisible={isVisible} closeModal={closeModal} />
+        <Modal isVisible={isVisible} closeModal={closeModal} handleSubmit={handleSubmit} handleChange={handleChange} />
       </div>
     );
   }
@@ -100,4 +110,12 @@ const mapStateToProps = (state: StateType): unknown => ({
   isVisible: state.boards.isVisible,
 });
 
-export default connect(mapStateToProps, { getBoards, postBoard, showModal, onKeyPress, closeModal })(Home as any);
+export default connect(mapStateToProps, {
+  getBoards,
+  postBoard,
+  showModal,
+  onKeyPress,
+  closeModal,
+  handleSubmit,
+  handleChange,
+})(Home as any);

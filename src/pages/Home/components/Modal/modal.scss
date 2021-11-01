@@ -62,3 +62,9 @@
 .modal-btn:hover {
   @extend %btn-hover;
 }
+
+.modal-label {
+  display: block;
+  padding-bottom: 20px;
+  font-size: 20px;
+}
