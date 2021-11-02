@@ -36,6 +36,12 @@ export default function reducer(state = initialState, action: { type: string; pa
         isVisible: false,
       };
     }
+    case 'UPDATE_NEWBOARD_NAME': {
+      return {
+        ...state,
+        newBoardName: action.payload,
+      };
+    }
     case 'ERROR_ACTION_TYPE':
       return {
         ...state,

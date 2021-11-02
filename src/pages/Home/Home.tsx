@@ -22,6 +22,7 @@ import Modal from './components/Modal/Modal';
 type PropsType = {
   boards: IBoard[];
   isVisible: boolean;
+  newBoardName: string;
   getBoards: () => Promise<void>;
   postBoard: () => Promise<void>;
   showModal: () => void;
@@ -30,10 +31,12 @@ type PropsType = {
   handleSubmit: (e: FormEvent) => void;
   handleChange: (e: ChangeEvent) => void;
 };
+
 type StateType = {
   boards: {
     boards: IBoard[];
     isVisible: boolean;
+    newBoardName: string;
   };
 };
 
@@ -74,10 +77,9 @@ class Home extends React.Component<PropsType, StateType> {
   }
 
   render(): JSX.Element {
-    const { boards } = this.props;
-    console.log('boards', boards);
-    const { isVisible } = this.props;
-    console.log(isVisible);
+    const { boards, isVisible, newBoardName } = this.props;
+    // console.log('boards', boards);
+    // console.log(isVisible);
     let randomColor;
     let items;
     if (boards) {
@@ -99,7 +101,13 @@ class Home extends React.Component<PropsType, StateType> {
             Создать доску
           </button>
         </div>
-        <Modal isVisible={isVisible} closeModal={closeModal} handleSubmit={handleSubmit} handleChange={handleChange} />
+        <Modal
+          isVisible={isVisible}
+          closeModal={closeModal}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          newBoardName={newBoardName}
+        />
       </div>
     );
   }
@@ -108,6 +116,7 @@ class Home extends React.Component<PropsType, StateType> {
 const mapStateToProps = (state: StateType): unknown => ({
   boards: state.boards.boards,
   isVisible: state.boards.isVisible,
+  newBoardName: state.boards.newBoardName,
 });
 
 export default connect(mapStateToProps, {
