@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 
@@ -14,7 +15,7 @@ export const getBoards =
   async (dispatch: Dispatch, getState: () => unknown): Promise<void> => {
     try {
       const data = await api.get('/board');
-      await dispatch({ type: 'UPDATE_BOARDS', payload: data });
+      dispatch({ type: 'UPDATE_BOARDS', payload: data });
       console.log('current state:', getState());
     } catch (e) {
       console.log(e);
@@ -53,7 +54,8 @@ export const closeModal = (): void => {
   store.dispatch({ type: 'CLOSE_MODAL' });
 };
 
-export const handleSubmit = (e: FormEvent): void => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const handleSubmit = async (e: FormEvent): Promise<void> => {
   e.preventDefault();
   const currentState: {
     boards: {
@@ -69,12 +71,40 @@ export const handleSubmit = (e: FormEvent): void => {
   }
   console.log('board name is ', isValide);
   if (isValide) {
-    // store.dispatch({ type: 'POST_BOARD' });
     console.log('Time to post, board name is ', isValide);
-  } else {
-    // store.dispatch({ type: 'VALIDATION_ERROR' });
-    console.log("Can't post, board name is ", isValide);
+    try {
+      const board = {
+        title: boardName,
+      };
+      // console.log('whyyy');
+      await api.post(`/board`, board);
+      store.dispatch({ type: 'POST_BOARD', payload: { ...board } });
+      const data = await api.get('/board');
+      store.dispatch({ type: 'UPDATE_BOARDS', payload: data });
+      closeModal();
+    } catch (er) {
+      console.log(er);
+      store.dispatch({ type: 'ERROR_ACTION_TYPE' });
+    }
   }
+  // if (isValide) {
+  //   console.log('Time to post, board name is ', isValide);
+  //   return async (dispatch: Dispatch): Promise<void> => {
+  //     try {
+  //       const board = {
+  //         title: boardName,
+  //       };
+  //       console.log('whyyy');
+  //       await api.post(`/board`, board);
+  //       await dispatch({ type: 'POST_BOARD', payload: { ...board } });
+  //     } catch (er) {
+  //       console.log(er);
+  //       dispatch({ type: 'ERROR_ACTION_TYPE' });
+  //     }
+  //   };
+  // }
+  // console.log("Can't post, board name is ", isValide);
+
   // if isValide
 };
 

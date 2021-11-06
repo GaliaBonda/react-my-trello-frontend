@@ -3,7 +3,6 @@
 
 .board-container {
   padding: 30px;
-  min-width: fit-content;
   overflow-x: auto;
   position: relative;
 }
@@ -17,6 +16,20 @@
   border: 2px solid $border;
   border-radius: 5px;
   box-shadow: 0px 0px 10px 2px $shadow;
+}
+
+.board-title-input {
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+  margin: 20px;
+  margin-bottom: 40px;
+  padding: 10px;
+  border: 2px solid $border;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 2px $shadow;
+  background-color: $background;
+  display: block;
 }
 
 .lists {

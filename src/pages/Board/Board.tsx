@@ -6,7 +6,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import IBoard from 'src/common/interfaces/IBoard';
 // import ICard from '../../common/interfaces/ICard';
-import { getBoard } from 'src/store/modules/board/actions';
+import { getBoard, openTitleInput } from 'src/store/modules/board/actions';
 // import IList from 'src/common/interfaces/IList';
 import ID from '../../common/interfaces/ID';
 import List from './components/List/List';
@@ -26,46 +26,16 @@ type TParams = { board_id: string | undefined };
 //   postBoard: () => Promise<void>;
 // };
 
-// interface IMyComponentState {
-//   title: string;
-//   lists: { id: number; title: string; cards: ICard[] }[];
-// }
-
-// const data = {
-//   title: 'Моя тестовая доска',
-//   lists: [
-//     {
-//       id: 1,
-//       title: 'Планы',
-//       cards: [
-//         { id: 1, title: 'помыть кота' },
-//         { id: 2, title: 'приготовить суп' },
-//         { id: 3, title: 'сходить в магазин' },
-//       ],
-//     },
-//     {
-//       id: 2,
-//       title: 'В процессе',
-//       cards: [{ id: 4, title: 'посмотреть сериал' }],
-//     },
-//     {
-//       id: 3,
-//       title: 'Сделано',
-//       cards: [
-//         { id: 5, title: 'сделать домашку' },
-//         { id: 6, title: 'погулять с собакой' },
-//       ],
-//     },
-//   ],
-// };
-
 type PropsType = {
   board: IBoard;
+  isOnChange: boolean;
   getBoard: (id: number) => Promise<void>;
+  openTitleInput: () => void;
 };
 
 type StateType = {
   board: IBoard;
+  isOnChange: boolean;
 };
 
 let boardID: ID;
@@ -76,14 +46,14 @@ class Board extends React.Component<RouteComponentProps<TParams> & PropsType, St
   //   this.state = data;
   // }
 
-  async componentDidMount(): Promise<void> {
+  componentDidMount(): void {
     // await this.props.postBoard();
     const { match } = this.props;
     const { board_id } = match.params;
-    console.log('I work');
+    // console.log('I work');
     if (board_id) boardID = Number.parseInt(board_id, 10);
     // eslint-disable-next-line react/destructuring-assignment
-    await this.props.getBoard(boardID);
+    this.props.getBoard(boardID);
   }
 
   render(): JSX.Element {
@@ -91,27 +61,28 @@ class Board extends React.Component<RouteComponentProps<TParams> & PropsType, St
     // const { board_id } = match.params;
     // if (board_id) boardID = Number.parseInt(board_id, 10);
 
-    const { board } = this.props;
+    const { board, isOnChange } = this.props;
     console.log('board', board);
-    // console.log('board.lists', board.lists);
-    // console.log('board.lists', board.lists);
+    console.log('isOnChange', isOnChange);
     let items;
     if (board && board.lists.length > 0) {
       items = board.lists.map((item) => <List title={item.title} cards={item.cards} key={item.id} />);
     }
-    // else {
-    //   items = [<List title="item.title" cards={[]} key="item.id" />];
+    // let boardTitle = <h1 className="board-title" onClick={openTitleInput}>{`${board.title} ${boardID}`}</h1>;
+    // if (isOnChange) {
+    //   boardTitle = (
+    //     <h1 className="board-title" onClick={openTitleInput}>
+    //       haha
+    //     </h1>
+    //   );
     // }
-    // const boardLists: IList[] = [];
-    // eslint-disable-next-line no-restricted-syntax
-    // for (const item of board.lists) boardLists.push(item);
-    // const items = boardLists.map((item) => <List title={item.title} cards={item.cards} key={item.id} />);
     if (board) {
       return (
         // <div>{items}</div>
         // <div>{JSON.stringify(board)}</div>
         <div className="board-container">
-          <h1 className="board-title">{`${board.title} ${boardID}`}</h1>
+          {!isOnChange && <h1 className="board-title" onClick={openTitleInput}>{`${board.title} ${boardID}`}</h1>}
+          {isOnChange && <input className="board-title-input" type="text" name="input" onClick={openTitleInput} />}
           <div className="lists">
             {items}
             <button className="board-btn">Создать список</button>
@@ -131,12 +102,15 @@ class Board extends React.Component<RouteComponentProps<TParams> & PropsType, St
 }
 
 const mapStateToProps = (state: StateType): unknown => {
-  return state.board;
+  return {
+    isOnChange: state.isOnChange,
+    ...state.board,
+  };
   // eslint-disable-next-line no-console
   // console.log(state);
   // const currentBoard = state.boards.find((item) => item.id === boardID);
   // return currentBoard;
 };
 
-const connectedBoard = connect(mapStateToProps, { getBoard })(Board as any);
+const connectedBoard = connect(mapStateToProps, { getBoard, openTitleInput })(Board as any);
 export default withRouter(connectedBoard);

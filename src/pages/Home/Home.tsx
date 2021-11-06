@@ -65,11 +65,11 @@ class Home extends React.Component<PropsType, StateType> {
   //   this.state = boards;
   // }
 
-  async componentDidMount(): Promise<void> {
+  componentDidMount(): void {
     document.addEventListener('keydown', onKeyPress);
     // console.log(this.props.boards);
     // await this.props.postBoard();
-    await this.props.getBoards();
+    this.props.getBoards(); // await
   }
 
   componentWillUnmount(): void {
