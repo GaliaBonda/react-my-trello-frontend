@@ -23,6 +23,7 @@ type PropsType = {
   boards: IBoard[];
   isVisible: boolean;
   newBoardName: string;
+  isValide: boolean;
   getBoards: () => Promise<void>;
   postBoard: () => Promise<void>;
   showModal: () => void;
@@ -33,11 +34,7 @@ type PropsType = {
 };
 
 type StateType = {
-  boards: {
-    boards: IBoard[];
-    isVisible: boolean;
-    newBoardName: string;
-  };
+  boards: { boards: IBoard[]; isVisible: boolean; newBoardName: string; isValide: boolean };
 };
 
 // interface IMyComponentState {
@@ -77,9 +74,9 @@ class Home extends React.Component<PropsType, StateType> {
   }
 
   render(): JSX.Element {
-    const { boards, isVisible, newBoardName } = this.props;
+    const { boards, isVisible, newBoardName, isValide } = this.props;
     // console.log('boards', boards);
-    // console.log(isVisible);
+    console.log(isVisible);
     let randomColor;
     let items;
     if (boards) {
@@ -97,6 +94,7 @@ class Home extends React.Component<PropsType, StateType> {
       <div className="boards-container">
         <div className="boards">
           {items}
+          {/* {boards} */}
           <button className="new-board-btn" onClick={showModal}>
             Создать доску
           </button>
@@ -107,6 +105,7 @@ class Home extends React.Component<PropsType, StateType> {
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           newBoardName={newBoardName}
+          isValide={isValide}
         />
       </div>
     );
@@ -116,6 +115,7 @@ class Home extends React.Component<PropsType, StateType> {
 const mapStateToProps = (state: StateType): unknown => ({
   boards: state.boards.boards,
   isVisible: state.boards.isVisible,
+  isValide: state.boards.isValide,
   newBoardName: state.boards.newBoardName,
 });
 

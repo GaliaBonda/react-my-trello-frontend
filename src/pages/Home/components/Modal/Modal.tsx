@@ -5,11 +5,12 @@ import './modal.scss';
 export default function Modal(props: {
   isVisible: boolean;
   newBoardName: string;
+  isValide: boolean;
   closeModal: () => void;
   handleSubmit: (e: FormEvent) => void;
   handleChange: (e: ChangeEvent) => void;
 }): JSX.Element | null {
-  const { isVisible, closeModal, handleSubmit, handleChange, newBoardName } = props;
+  const { isVisible, closeModal, handleSubmit, handleChange, newBoardName, isValide } = props;
   // const { closeModal } = props;
   if (!isVisible) return null;
   console.log(newBoardName);
@@ -23,9 +24,12 @@ export default function Modal(props: {
           </label>
           <input className="modal-input" type="text" name="input" id="boardName" onChange={handleChange} />
           <div className="modal-btns">
-            <button className="modal-btn modal-submit" type="submit">
-              Создать
-            </button>
+            {isValide && (
+              <button className="modal-btn modal-submit" type="submit">
+                Создать
+              </button>
+            )}
+            {!isValide && <button className="modal-btn modal-submit">Создать</button>}
             <button className="modal-btn modal-close" onClick={closeModal}>
               Закрыть
             </button>

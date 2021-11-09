@@ -2,13 +2,9 @@
 import IBoard from '../../../common/interfaces/IBoard';
 
 const initialState = {
-  boards: [
-    { id: 1, title: 'покупки' },
-    { id: 2, title: 'подготовка к свадьбе' },
-    { id: 3, title: 'разработка интернет-магазина' },
-    { id: 4, title: 'курс по продвижению в соцсетях' },
-  ] as IBoard[],
+  boards: [] as IBoard[],
   isVisible: false,
+  isValide: false,
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,7 +13,7 @@ export default function reducer(state = initialState, action: { type: string; pa
     case 'UPDATE_BOARDS':
       return {
         ...state,
-        boards: action.payload.boards,
+        boards: action.payload,
       };
     case 'POST_BOARD':
       return {
@@ -40,6 +36,18 @@ export default function reducer(state = initialState, action: { type: string; pa
       return {
         ...state,
         newBoardName: action.payload,
+      };
+    }
+    case 'VALID_TITLE': {
+      return {
+        ...state,
+        isValide: true,
+      };
+    }
+    case 'INVALID_TITLE': {
+      return {
+        ...state,
+        isValide: false,
       };
     }
     case 'ERROR_ACTION_TYPE':

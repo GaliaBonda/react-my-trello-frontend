@@ -14,9 +14,12 @@ export const getBoards =
   () =>
   async (dispatch: Dispatch, getState: () => unknown): Promise<void> => {
     try {
-      const data = await api.get('/board');
-      dispatch({ type: 'UPDATE_BOARDS', payload: data });
+      const data: any = await api.get('/board');
+      const boardData: IBoard[] = await data.boards;
+
+      dispatch({ type: 'UPDATE_BOARDS', payload: boardData });
       console.log('current state:', getState());
+      console.log('data from board', boardData);
     } catch (e) {
       console.log(e);
       dispatch({ type: 'ERROR_ACTION_TYPE' });
@@ -54,6 +57,22 @@ export const closeModal = (): void => {
   store.dispatch({ type: 'CLOSE_MODAL' });
 };
 
+export const validateTitle = (title: string): boolean => {
+  let isValide = false;
+  if (title && title.length > 0 && title.match(/[\w\u0430-\u044f-]+[\w\u0430-\u044f\s-]*/i)) {
+    isValide = true;
+    store.dispatch({ type: 'VALID_TITLE' });
+    console.log('isValide');
+    const re = /[^\w\u0430-\u044f-.]+[\w\u0430-\u044f\s-.]*$/;
+    console.log('re test', re.test(title));
+    console.log(title.match(/[\w\u0430-\u044f.-]+[\w\u0430-\u044f\s.-]*/i));
+  } else {
+    store.dispatch({ type: 'INVALID_TITLE' });
+    console.log('isInValide');
+  }
+  return isValide;
+};
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const handleSubmit = async (e: FormEvent): Promise<void> => {
   e.preventDefault();
@@ -61,20 +80,17 @@ export const handleSubmit = async (e: FormEvent): Promise<void> => {
     boards: {
       boards: IBoard[];
       isVisible: boolean;
+      isValide: boolean;
       newBoardName: string;
     };
   } = store.getState();
-  const boardName = currentState.boards.newBoardName;
-  let isValide = false;
-  if (boardName && boardName.length > 0 && boardName.match(/[\w\u0430-\u044f.-]+[\w\u0430-\u044f\s.-]*/i)) {
-    isValide = true;
-  }
-  console.log('board name is ', isValide);
+  const { newBoardName, isValide } = currentState.boards;
+  // const isValide = currentState.boards.isValide;
   if (isValide) {
     console.log('Time to post, board name is ', isValide);
     try {
       const board = {
-        title: boardName,
+        title: newBoardName,
       };
       // console.log('whyyy');
       await api.post(`/board`, board);
@@ -111,4 +127,5 @@ export const handleSubmit = async (e: FormEvent): Promise<void> => {
 export const handleChange = (e: ChangeEvent): void => {
   e.preventDefault();
   store.dispatch({ type: 'UPDATE_NEWBOARD_NAME', payload: (e.target as HTMLInputElement).value });
+  validateTitle((e.target as HTMLInputElement).value);
 };

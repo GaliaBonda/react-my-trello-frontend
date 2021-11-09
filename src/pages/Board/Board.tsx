@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/naming-convention */
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import IBoard from 'src/common/interfaces/IBoard';
 // import ICard from '../../common/interfaces/ICard';
-import { getBoard, openTitleInput } from 'src/store/modules/board/actions';
+import { getBoard, openTitleInput, changeTitle } from 'src/store/modules/board/actions';
 // import IList from 'src/common/interfaces/IList';
 import ID from '../../common/interfaces/ID';
 import List from './components/List/List';
@@ -31,6 +31,7 @@ type PropsType = {
   isOnChange: boolean;
   getBoard: (id: number) => Promise<void>;
   openTitleInput: () => void;
+  changeTitle: (e: ChangeEvent) => void;
 };
 
 type StateType = {
@@ -65,24 +66,24 @@ class Board extends React.Component<RouteComponentProps<TParams> & PropsType, St
     console.log('board', board);
     console.log('isOnChange', isOnChange);
     let items;
-    if (board && board.lists.length > 0) {
+    if (board && board.lists && board.lists.length > 0) {
       items = board.lists.map((item) => <List title={item.title} cards={item.cards} key={item.id} />);
     }
-    // let boardTitle = <h1 className="board-title" onClick={openTitleInput}>{`${board.title} ${boardID}`}</h1>;
-    // if (isOnChange) {
-    //   boardTitle = (
-    //     <h1 className="board-title" onClick={openTitleInput}>
-    //       haha
-    //     </h1>
-    //   );
-    // }
     if (board) {
       return (
-        // <div>{items}</div>
         // <div>{JSON.stringify(board)}</div>
         <div className="board-container">
           {!isOnChange && <h1 className="board-title" onClick={openTitleInput}>{`${board.title} ${boardID}`}</h1>}
-          {isOnChange && <input className="board-title-input" type="text" name="input" onClick={openTitleInput} />}
+          {isOnChange && (
+            <input
+              className="board-title-input"
+              type="text"
+              name="input"
+              // onClick={openTitleInput}
+              value={board.title}
+              onChange={changeTitle}
+            />
+          )}
           <div className="lists">
             {items}
             <button className="board-btn">Создать список</button>
@@ -112,5 +113,5 @@ const mapStateToProps = (state: StateType): unknown => {
   // return currentBoard;
 };
 
-const connectedBoard = connect(mapStateToProps, { getBoard, openTitleInput })(Board as any);
+const connectedBoard = connect(mapStateToProps, { getBoard, openTitleInput, changeTitle })(Board as any);
 export default withRouter(connectedBoard);

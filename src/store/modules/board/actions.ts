@@ -4,6 +4,7 @@ import api from 'src/api';
 import config from 'src/common/constants/api';
 import { Dispatch } from 'redux';
 import store from 'src/store/store';
+import { ChangeEvent } from 'react';
 
 export const getBoard =
   (id: number) =>
@@ -20,5 +21,10 @@ export const getBoard =
 
 export const openTitleInput = (): void => {
   store.dispatch({ type: 'SHOW_TITLE_INPUT' });
-  console.log('open title input');
+};
+
+export const changeTitle = (e: ChangeEvent): void => {
+  console.log('change title input');
+  e.preventDefault();
+  store.dispatch({ type: 'UPDATE_BOARD_TITLE', payload: (e.target as HTMLInputElement).value });
 };

@@ -1,5 +1,5 @@
 const initialState = {
-  // board: {},
+  board: {},
   isOnChange: false,
 };
 
@@ -16,6 +16,15 @@ export default function reducer(state = initialState, action: { type: string; pa
       return {
         ...state,
         isOnChange: !state.isOnChange,
+      };
+    }
+    case 'UPDATE_BOARD_TITLE': {
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          title: action.payload,
+        },
       };
     }
     default: {
