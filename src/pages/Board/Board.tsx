@@ -6,7 +6,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import IBoard from 'src/common/interfaces/IBoard';
 // import ICard from '../../common/interfaces/ICard';
-import { getBoard, openTitleInput, changeTitle } from 'src/store/modules/board/actions';
+import { getBoard, openTitleInput, changeTitle, closeTitleInput, onKeyPress } from 'src/store/modules/board/actions';
 // import IList from 'src/common/interfaces/IList';
 import ID from '../../common/interfaces/ID';
 import List from './components/List/List';
@@ -29,14 +29,17 @@ type TParams = { board_id: string | undefined };
 type PropsType = {
   board: IBoard;
   isOnChange: boolean;
+  id: ID;
   getBoard: (id: number) => Promise<void>;
   openTitleInput: () => void;
   changeTitle: (e: ChangeEvent) => void;
+  onKeyPress: () => Promise<void>;
 };
 
 type StateType = {
   board: IBoard;
   isOnChange: boolean;
+  id: ID;
 };
 
 let boardID: ID;
@@ -79,9 +82,12 @@ class Board extends React.Component<RouteComponentProps<TParams> & PropsType, St
               className="board-title-input"
               type="text"
               name="input"
+              data-id={boardID}
               // onClick={openTitleInput}
+              onBlur={closeTitleInput}
               value={board.title}
               onChange={changeTitle}
+              onKeyPress={onKeyPress}
             />
           )}
           <div className="lists">
@@ -113,5 +119,7 @@ const mapStateToProps = (state: StateType): unknown => {
   // return currentBoard;
 };
 
-const connectedBoard = connect(mapStateToProps, { getBoard, openTitleInput, changeTitle })(Board as any);
+const connectedBoard = connect(mapStateToProps, { getBoard, openTitleInput, changeTitle, closeTitleInput, onKeyPress })(
+  Board as any
+);
 export default withRouter(connectedBoard);

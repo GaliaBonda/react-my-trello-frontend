@@ -76,7 +76,7 @@ class Home extends React.Component<PropsType, StateType> {
   render(): JSX.Element {
     const { boards, isVisible, newBoardName, isValide } = this.props;
     // console.log('boards', boards);
-    console.log(isVisible);
+    console.log(isValide);
     let randomColor;
     let items;
     if (boards) {

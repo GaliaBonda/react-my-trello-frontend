@@ -59,13 +59,10 @@ export const closeModal = (): void => {
 
 export const validateTitle = (title: string): boolean => {
   let isValide = false;
-  if (title && title.length > 0 && title.match(/[\w\u0430-\u044f-]+[\w\u0430-\u044f\s-]*/i)) {
+  const validationRegex = /^[a-z0-9а-я\s.-]+$/i;
+  if (title && title.length > 0 && validationRegex.test(title)) {
     isValide = true;
     store.dispatch({ type: 'VALID_TITLE' });
-    console.log('isValide');
-    const re = /[^\w\u0430-\u044f-.]+[\w\u0430-\u044f\s-.]*$/;
-    console.log('re test', re.test(title));
-    console.log(title.match(/[\w\u0430-\u044f.-]+[\w\u0430-\u044f\s.-]*/i));
   } else {
     store.dispatch({ type: 'INVALID_TITLE' });
     console.log('isInValide');
