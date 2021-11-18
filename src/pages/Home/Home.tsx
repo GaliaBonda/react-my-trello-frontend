@@ -5,7 +5,7 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import IBoard from 'src/common/interfaces/IBoard';
+import IBoards from 'src/common/interfaces/IBoard';
 import Board from './components/Board/Board';
 import './home.scss';
 import {
@@ -20,7 +20,7 @@ import {
 import Modal from './components/Modal/Modal';
 
 type PropsType = {
-  boards: IBoard[];
+  boards: IBoards[];
   isVisible: boolean;
   newBoardName: string;
   isValide: boolean;
@@ -34,39 +34,13 @@ type PropsType = {
 };
 
 type StateType = {
-  boards: { boards: IBoard[]; isVisible: boolean; newBoardName: string; isValide: boolean };
+  boards: { boards: IBoards[]; isVisible: boolean; newBoardName: string; isValide: boolean };
 };
 
-// interface IMyComponentState {
-//   boards: { id: number; title: string }[];
-// }
-
-// interface IMyComponentProp {
-//   boards?: { id: number; title: string }[];
-// }
-
-// const boards = {
-//   boards: [
-//     { id: 1, title: 'покупки' },
-//     { id: 2, title: 'подготовка к свадьбе' },
-//     { id: 3, title: 'разработка интернет-магазина' },
-//     { id: 4, title: 'курс по продвижению в соцсетях' },
-//   ],
-// };
-
-// let modalIsVisible: boolean;
-
 class Home extends React.Component<PropsType, StateType> {
-  // constructor(props: PropsType) {
-  //   super(props);
-  //   this.state = boards;
-  // }
-
   componentDidMount(): void {
     document.addEventListener('keydown', onKeyPress);
-    // console.log(this.props.boards);
-    // await this.props.postBoard();
-    this.props.getBoards(); // await
+    this.props.getBoards();
   }
 
   componentWillUnmount(): void {
@@ -75,8 +49,6 @@ class Home extends React.Component<PropsType, StateType> {
 
   render(): JSX.Element {
     const { boards, isVisible, newBoardName, isValide } = this.props;
-    // console.log('boards', boards);
-    console.log(isValide);
     let randomColor;
     let items;
     if (boards) {
@@ -90,11 +62,9 @@ class Home extends React.Component<PropsType, StateType> {
       });
     }
     return (
-      // <div>{JSON.stringify(boards)}</div>
       <div className="boards-container">
         <div className="boards">
           {items}
-          {/* {boards} */}
           <button className="new-board-btn" onClick={showModal}>
             Создать доску
           </button>

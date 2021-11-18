@@ -54,3 +54,9 @@
 .board-btn:hover {
   @extend %btn-hover;
 }
+
+.delete-btn {
+  position: absolute;
+  bottom: 0;
+  right: 40px;
+}

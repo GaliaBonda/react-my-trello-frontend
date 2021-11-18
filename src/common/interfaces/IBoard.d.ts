@@ -1,8 +1,10 @@
 import ID from './ID';
-import ICard from './ICard';
+import IList from './IList';
+import IUser from './IUser';
 
 export default interface IBoard {
   id: ID;
   title: string;
-  lists: { id: ID; title: string; cards: ICard[] }[];
+  lists: IList[];
+  user: IUser[];
 }

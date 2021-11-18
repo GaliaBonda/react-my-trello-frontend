@@ -11,7 +11,6 @@ export default function Modal(props: {
   handleChange: (e: ChangeEvent) => void;
 }): JSX.Element | null {
   const { isVisible, closeModal, handleSubmit, handleChange, newBoardName, isValide } = props;
-  // const { closeModal } = props;
   if (!isVisible) return null;
   console.log(newBoardName);
   return (

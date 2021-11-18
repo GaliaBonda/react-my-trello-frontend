@@ -33,8 +33,14 @@ export default function reducer(state = initialState, action: { type: string; pa
         },
       };
     }
+    case 'DELETE_BOARD': {
+      return {
+        ...state,
+        // delete
+      };
+    }
     default: {
-      return { ...state, ...action.payload };
+      return { ...state };
     }
   }
 }
