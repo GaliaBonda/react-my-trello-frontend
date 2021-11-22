@@ -1,19 +1,17 @@
-/* eslint-disable no-console */
+import IBoards from 'src/common/interfaces/IBoards';
 import IBoard from '../../../common/interfaces/IBoard';
 
 const initialState = {
   boards: [] as IBoard[],
-  isVisible: false,
   isValide: false,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function reducer(state = initialState, action: { type: string; payload?: any }): unknown {
+export default function reducer(state = initialState, action: { type: string; payload?: unknown }): unknown {
   switch (action.type) {
     case 'UPDATE_BOARDS':
       return {
         ...state,
-        boards: action.payload,
+        boards: (action.payload as { boards: IBoards[] }).boards,
       };
     case 'POST_BOARD':
       return {

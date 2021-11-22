@@ -29,8 +29,6 @@ export default function App(): JSX.Element {
           </ul>
         </nav>
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/board/:board_id">
             <About />
@@ -46,15 +44,3 @@ export default function App(): JSX.Element {
     </Router>
   );
 }
-
-// function Child(): JSX.Element {
-//   // We can use the `useParams` hook here to access
-//   // the dynamic pieces of the URL.
-//   const { board_id } = useParams<{ board_id: string }>();
-
-//   return (
-//     <div>
-//       <h3>ID: {board_id}</h3>
-//     </div>
-//   );
-// }

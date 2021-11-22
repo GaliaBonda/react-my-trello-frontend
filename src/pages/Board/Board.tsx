@@ -1,9 +1,7 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { ChangeEvent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import IBoard from 'src/common/interfaces/IBoard';
 import {
   getBoard,
@@ -22,12 +20,12 @@ type TParams = { board_id: string | undefined };
 type PropsType = {
   board: IBoard;
   isOnChange: boolean;
-  id: ID;
-  getBoard: (id: number) => Promise<void>;
-  openTitleInput: () => void;
-  changeTitle: (e: ChangeEvent) => void;
-  onKeyPress: () => Promise<void>;
-  deleteBoard: () => Promise<void>;
+  id?: ID;
+  getBoard?: (id: number) => Promise<void>;
+  openTitleInput?: () => void;
+  changeTitle?: (e: ChangeEvent) => void;
+  onKeyPress?: () => Promise<void>;
+  deleteBoard?: () => Promise<void>;
 };
 
 type StateType = {
@@ -38,7 +36,10 @@ type StateType = {
 
 let boardID: ID;
 
-class Board extends React.Component<RouteComponentProps<TParams> & PropsType, StateType> {
+class Board extends React.Component<
+  RouteComponentProps<TParams> & PropsType & ConnectedProps<typeof boardConnector>,
+  StateType
+> {
   componentDidMount(): void {
     const { match } = this.props;
     const { board_id } = match.params;
@@ -49,8 +50,6 @@ class Board extends React.Component<RouteComponentProps<TParams> & PropsType, St
 
   render(): JSX.Element {
     const { board, isOnChange } = this.props;
-    console.log('board', board);
-    console.log('isOnChange', isOnChange);
     let items;
     if (board && board.lists && board.lists.length > 0) {
       items = board.lists.map((item) => <List title={item.title} cards={item.cards} key={item.id} id={item.id} />);
@@ -92,19 +91,19 @@ class Board extends React.Component<RouteComponentProps<TParams> & PropsType, St
   }
 }
 
-const mapStateToProps = (state: StateType): unknown => {
+const mapStateToProps = (state: StateType): PropsType => {
   return {
     isOnChange: state.isOnChange,
     ...state.board,
   };
 };
 
-const connectedBoard = connect(mapStateToProps, {
+const boardConnector = connect(mapStateToProps, {
   getBoard,
   openTitleInput,
   changeTitle,
   closeTitleInput,
   onKeyPress,
   deleteBoard,
-})(Board as any);
-export default withRouter(connectedBoard);
+});
+export default withRouter(boardConnector(Board));
