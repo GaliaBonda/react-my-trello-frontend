@@ -1,20 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { approveNewName } from 'src/store/modules/boards/actions';
+import { useDispatch } from 'react-redux';
 import './modal.scss';
 
 export default function Modal(props: {
-  newBoardName: string;
-  isValide: boolean;
-  handleSubmit: (e: FormEvent) => void;
-  handleChange: (e: ChangeEvent) => void;
+  handleSubmit: () => void;
   isVisible: boolean;
-  onClick: () => void;
+  closeModal: () => void;
 }): JSX.Element | null {
   const [boardName, setBoardName] = useState('');
   const [nameIsValide, setValidationStatus] = useState(false);
-  const { onClick, handleSubmit, handleChange, newBoardName, isValide, isVisible } = props;
+  const dispatch = useDispatch();
+  const { closeModal, handleSubmit, isVisible } = props;
   if (!isVisible) return null;
   function onNameChange(e: ChangeEvent): void {
     setBoardName((e.target as HTMLInputElement).value);
@@ -22,13 +20,18 @@ export default function Modal(props: {
     if (boardName && boardName.length > 0 && validationRegex.test(boardName)) {
       setValidationStatus(true);
     }
-    if (nameIsValide) approveNewName(boardName);
+  }
+  function createNewBoard(event: FormEvent<Element>): void {
+    event.preventDefault();
+    dispatch({ type: 'UPDATE_NEWBOARD_NAME', payload: boardName });
+    handleSubmit();
+    closeModal();
   }
   return (
     <div className="modal-container">
       <div className="modal">
         <h2 className="modal-title">Создать новую доску</h2>
-        <form className="modal-form" onSubmit={handleSubmit}>
+        <form className="modal-form" onSubmit={createNewBoard}>
           <label className="modal-label" htmlFor="boardName">
             Введите имя доски:
           </label>
@@ -40,7 +43,7 @@ export default function Modal(props: {
               </button>
             )}
             {!nameIsValide && <button className="modal-btn modal-submit">Создать</button>}
-            <button className="modal-btn modal-close" onClick={onClick}>
+            <button className="modal-btn modal-close" onClick={closeModal}>
               Закрыть
             </button>
           </div>

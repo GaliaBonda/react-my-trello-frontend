@@ -2,13 +2,12 @@
 @import '../../../Board/components/List/list.scss';
 
 .modal-container {
-  position: absolute;
-  min-width: 100vw;
-  min-height: 100vh;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
   background-color: $shadow;
   top: 0;
   left: 0;
-  // overflow-y: hidden; doesn't work!
 }
 
 .modal {
@@ -17,7 +16,7 @@
   @extend %blank;
   background-color: $background;
   position: absolute;
-  top: 25vh;
+  top: 10%;
   left: 50vw;
   transform: translate(-50%);
   padding: 20px;

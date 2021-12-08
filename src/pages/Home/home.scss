@@ -1,5 +1,9 @@
 @import '../Board/components/List/list.scss';
 
+.home-container {
+  position: relative;
+}
+
 .boards {
   margin: 40px;
   display: flex;

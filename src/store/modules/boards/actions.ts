@@ -3,7 +3,7 @@ import api from 'src/api';
 import { Dispatch } from 'redux';
 import IBoards from 'src/common/interfaces/IBoards';
 import store from 'src/store/store';
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 export const getBoards =
   () =>
@@ -58,8 +58,7 @@ export const validateTitle = (title: string): boolean => {
   return isValide;
 };
 
-export const handleSubmit = async (e: FormEvent): Promise<void> => {
-  e.preventDefault();
+export const handleSubmit = async (): Promise<void> => {
   const currentState: {
     boards: {
       boards: IBoards[];
@@ -68,8 +67,6 @@ export const handleSubmit = async (e: FormEvent): Promise<void> => {
     };
   } = store.getState();
   const { newBoardName } = currentState.boards;
-  console.log(newBoardName);
-  // if (isValide) {
   try {
     const board = {
       title: newBoardName,
@@ -78,15 +75,9 @@ export const handleSubmit = async (e: FormEvent): Promise<void> => {
     store.dispatch({ type: 'POST_BOARD', payload: { ...board } });
     const boardData = await api.get('/board');
     store.dispatch({ type: 'UPDATE_BOARDS', payload: boardData });
-    closeModal();
   } catch (er) {
     store.dispatch({ type: 'ERROR_ACTION_TYPE' });
   }
-  // }
-};
-
-export const approveNewName = (name: string): void => {
-  store.dispatch({ type: 'UPDATE_NEWBOARD_NAME', payload: name });
 };
 
 export const handleChange = (e: ChangeEvent): void => {
